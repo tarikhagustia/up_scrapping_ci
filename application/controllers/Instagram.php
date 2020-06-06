@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Youtube extends CI_Controller {
+class Instagram extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -25,12 +25,10 @@ class Youtube extends CI_Controller {
         $this->load->library('scrapping');
     }
 
-    public function index()
+    public function search()
     {
-        $results = [];
-        if ($locale = $this->input->get('locale')) {
-            $results = $this->scrapping->youtube($locale);
-        }
-        $this->load->view('youtube', compact('results'));
+        $search = $this->input->get('q');
+        $results = $this->scrapping->instagramSearch($search);
+        $this->load->view('instagram', compact('results'));
     }
 }

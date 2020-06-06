@@ -13,6 +13,13 @@ class Scrapping
         ]);
     }
 
+    public function instagramSearch($query){
+
+        return $this->send('/instagram/search', [
+            'q' => $query
+        ]);
+    }
+
     private function send($url, $query){
 
         $curl = curl_init();
