@@ -51,9 +51,24 @@ class Scrapping
         ]);
     }
 
+    public function tiktokTrending()
+    {
+        return $this->send('/tiktok/trending', []);
+    }
+
+    public function tiktokDiscovery()
+    {
+        return $this->send('/tiktok/discovery', []);
+    }
+
+    public function tiktokVideo($url)
+    {
+        // var_dump('/tiktok/videos/'.$url);
+        return $this->send('/tiktok/videos'.$url, []);
+    }
+
     public function instagramMedia($code)
     {
-
         return $this->send('/instagram/media/'.$code, []);
     }
 }
