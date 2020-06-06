@@ -25,10 +25,34 @@ class Instagram extends CI_Controller {
         $this->load->library('scrapping');
     }
 
+    public function index()
+    {
+        $code = $this->input->get('code');
+        $media = $this->scrapping->instagramMedia($code);
+        if ($media->__typename === "GraphVideo") {
+            $this->load->view('instagram_media_video', compact('media'));
+        }
+
+        if ($media->__typename === "GraphImage") {
+            $this->load->view('instagram_media_image', compact('media'));
+        }
+
+        if ($media->__typename === "GraphSidecar") {
+            $this->load->view('instagram_media_slider', compact('media'));
+        }
+    }
+
     public function search()
     {
         $search = $this->input->get('q');
         $results = $this->scrapping->instagramSearch($search);
         $this->load->view('instagram', compact('results'));
+    }
+
+    public function feed()
+    {
+        $search = $this->input->get('q');
+        $results = $this->scrapping->instagramFeed($search);
+        $this->load->view('instagram_feed', compact('results'));
     }
 }
