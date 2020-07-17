@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Scrapping
 {
-    const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "http://http://43.252.138.70:3000";
 
     public function youtube($locale)
     {
