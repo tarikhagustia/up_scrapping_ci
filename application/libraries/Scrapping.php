@@ -71,4 +71,29 @@ class Scrapping
     {
         return $this->send('/instagram/media/'.$code, []);
     }
+
+    public function uploadVideo($title, $location) {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL            => self::BASE_URL."/upload/videos",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => "",
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => "POST",
+            CURLOPT_POSTFIELDS     => array('title' => $title, 'video' => new CURLFILE($location)),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public function getAsset($file) {
+        return self::BASE_URL.$file;
+    }
 }
