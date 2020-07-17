@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         <video width="320" height="240" controls>
-                            <source src="<?= $i->videoUrlNoWaterMark ?>" type="video/mp4">
+                            <source src="<?= $i->videoUrl ?>" type="video/mp4">
                         </video>
                     </div>
                     <div class="card-body">
