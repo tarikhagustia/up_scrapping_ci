@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container">
         <h3>Tiktok Video</h3>
         <video width="<?= $video->videoMeta->width ?>" height="<?= $video->videoMeta->height ?>" controls>
-            <source src="<?= $video->videoUrlNoWaterMark ?>" type="video/mp4">
+            <source src="<?= $video->videoUrl ?>" type="video/mp4">
         </video>
         <p>
             <?= $video->authorMeta->name ?>
