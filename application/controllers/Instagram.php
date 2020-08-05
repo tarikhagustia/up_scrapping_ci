@@ -28,7 +28,15 @@ class Instagram extends CI_Controller {
     public function index()
     {
         $code = $this->input->get('code');
+        $json = $this->input->get('json');
+
         $media = $this->scrapping->instagramMedia($code);
+        if ($json){
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(200)
+                ->set_output(json_encode($media));
+        }
         if ($media->__typename === "GraphVideo") {
             $this->load->view('instagram_media_video', compact('media'));
         }

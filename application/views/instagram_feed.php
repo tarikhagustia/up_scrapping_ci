@@ -17,8 +17,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php foreach ($results->edge_hashtag_to_media->edges as $i):?>
                 <div class="col-sm-4">
                     <div class="card">
-                        <img class="card-img-top" src="<?= $i->node->display_url ?>" alt="Card image cap">
                         <div class="card-body">
+                            <img class="img-fluid <?= ($i->node->__typename == "GraphVideo") ? 'img-play' : null ?>" src="<?= $i->node->display_url ?>" data-url="<?= $i->node->shortcode ?>" alt="Card image cap">
                             <h5 class="card-title"><?= $i->node->__typename ?></h5>
                             <p class="card-text"><?= $i->node->edge_media_to_caption->edges[0]->node->text ?></p>
                         </div>
@@ -44,5 +44,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php endforeach ?>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.img-play').hover(function (e) {
+                const videoUrl = $(this).data('url')
+                const that = this
+                $.getJSON("<?= base_url('instagram?code=') ?>" + videoUrl + '&json=true', function(json){
+                    // Hide this image and display video
+
+                    const html = `
+<div class="embed-responsive embed-responsive-1by1">
+ <video width="${json.dimensions.width}" height="${json.dimensions.height}" controls>
+                            <source src="${json.video_url}" type="video/mp4">
+                        </video>
+</div>
+
+                    `;
+                    console.log(html)
+                    $(that).parent().append(html)
+                    $(that).remove()
+                })
+            })
+        })
+    </script>
 </body>
 </html>
