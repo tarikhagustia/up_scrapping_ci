@@ -32,16 +32,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <div class="row">
-            <?php foreach ($results->places as $i):?>
+            <?php /*var_dump($results->places); foreach ($results->places as $i):?>
                 <div class="col-sm-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $i->place->title ?></h5>
+                            <h5 class="card-title"><?= $i->places->title ?></h5>
                         </div>
                     </div>
                     <br>
                 </div>
-            <?php endforeach ?>
+            <?php endforeach*/ ?>
         </div>
     </div>
 </body>

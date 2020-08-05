@@ -14,6 +14,24 @@ class Scrapping
         ]);
     }
 
+    public function youtubeSearch($query)
+    {
+
+        return $this->send('/youtube/search', [
+            'q' => $query
+        ]);
+    }
+
+    public function youtubeSearchLocation($query, $location, $radius)
+    {
+
+        return $this->send('/youtube/search', [
+            'q' => $query,
+            'location' => $location,
+            'radius' => $radius
+        ]);
+    }
+
     private function send($url, $query)
     {
 

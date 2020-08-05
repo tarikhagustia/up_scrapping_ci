@@ -27,10 +27,29 @@ class Youtube extends CI_Controller {
 
     public function index()
     {
-        $results = [];
+
         if ($locale = $this->input->get('locale')) {
             $results = $this->scrapping->youtube($locale);
+        }else{
+            $results = $this->scrapping->youtube("ID");
         }
         $this->load->view('youtube', compact('results'));
+    }
+
+    public function search()
+    {
+        $q = $this->input->get('q');
+        $results = $this->scrapping->youtubeSearch($q);
+        $this->load->view('youtube_search', compact('results'));
+    }
+
+    public function search_location()
+    {
+        $q = $this->input->get('q');
+echo '<br><br><br><br><br><br><br>';
+        echo $location = '';//'-6.2293867,106.6894293';//$this->input->get('location');
+        $radius = '';//$this->input->get('radius');
+        $results = $this->scrapping->youtubeSearchLocation($q, $location, $radius);
+        $this->load->view('youtube_search', compact('results'));
     }
 }

@@ -48,7 +48,9 @@ class Upload extends CI_Controller {
         {
             $data = $this->upload->data();
         }
+var_dump($_FILES);
         $response = $this->scrapping->uploadVideo($title, $data['full_path']);
+var_dump($response);
 
         // Redirect to videos detail
         redirect('videos?vid='.$response->data->videoId);
