@@ -47,6 +47,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         $(document).on('click', '.reply-btn', function (e) {
             e.preventDefault()
+            // Remove All Reply Form
+            $('.form-comment-reply').remove();
             // Show Reply Form
             $(this).parent().append(renderReplyForm($(this).data('comment')))
             let commentSource = $(this).parent()
