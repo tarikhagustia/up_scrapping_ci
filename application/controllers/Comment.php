@@ -64,4 +64,74 @@ class Comment extends CI_Controller
                 ]
             ]));
     }
+
+    public function json()
+    {
+
+        $sql = "select * from comment where content_id='$video_id' AND comment_process='Active' AND comment_status='Active' AND content_parent='0' order by comment_id asc";
+        $query = $this->db->query($sql);
+        $response = array();
+        $posts = array();
+        foreach ($query->result_array() as $index => $row) {
+            $comment_id = $row['comment_id'];
+            $id_users = $row['id_users'];
+            $content_parent = $row['content_parent'];
+            $comment_content = $row['comment_content'];
+            $comment_process = $row['comment_process'];
+            $comment_time = $this->timeelapse->timeAgo($row['comment_c_date']);
+
+            //convert comment sender
+            $sql2 = "select fullname,users_email from users WHERE id_users='$id_users'";
+            $query2 = $this->db->query($sql2);
+            $row2 = $query2->row_array();
+            $comment_sender = isset($row2['fullname']) ? $row2['fullname'] : '';
+            if ($comment_sender == '') {
+                $comment_sender0 = explode("@", $row2['users_email']);
+                $comment_sender = isset($comment_sender0[0]) ? $comment_sender0[0] : '';
+            }
+
+            $posts[$index] = array(
+                "komentar_id"      => $comment_id,
+                "komentar_sender"  => $comment_sender,
+                "komentar_parent"  => $content_parent,
+                "komentar_content" => $comment_content,
+                "komentar_waktu"   => $comment_time,
+                "komentar_status"  => $comment_process,
+            );
+
+            $sql1 = "select * from comment where content_id='$video_id' AND comment_process='Active' AND comment_status='Active' AND content_parent='$comment_id' order by comment_id asc";
+            $query1 = $this->db->query($sql1);
+            $no = 0;
+            foreach ($query1->result_array() as $row1) {
+                //for($i=1;$i<3;$i++){
+                ++$no;
+                $comment_id1 = $row1['comment_id'];
+                $id_users1 = $row1['id_users'];
+                $content_parent1 = $row1['content_parent'];
+                $comment_content1 = $row1['comment_content'];
+                $comment_process1 = $row1['comment_process'];
+                $comment_time1 = $this->timeelapse->timeAgo($row1['comment_c_date']);
+
+                //convert comment sender
+                $sql3 = "select fullname,users_email from users WHERE id_users='$id_users1'";
+                $query3 = $this->db->query($sql3);
+                $row3 = $query3->row_array();
+                $comment_sender1 = isset($row3['fullname']) ? $row3['fullname'] : '';
+                if ($comment_sender1 == '') {
+                    $comment_sender10 = explode("@", $row3['users_email']);
+                    $comment_sender1 = isset($comment_sender10[0]) ? $comment_sender10[0] : '';
+                }
+
+                $posts[$index]["reply"] = array(
+                    "komentar_id"      => $comment_id1,
+                    "komentar_sender"  => $comment_sender1,
+                    "komentar_parent"  => $content_parent1,
+                    "komentar_content" => $comment_content1,
+                    "komentar_waktu"   => $comment_time1,
+                    "komentar_status"  => $comment_process1,
+                );
+            }
+        }
+        $response['komentar'] = $posts;
+    }
 }
