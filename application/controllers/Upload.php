@@ -30,9 +30,17 @@ class Upload extends CI_Controller {
         $this->load->view('upload');
     }
 
+    public function new()
+    {
+        $this->load->view('upload_form');
+    }
+
+
     public function do_upload()
     {
         $title = $this->input->post('title');
+$title = isset($title) ? $title : '';
+
         $config['upload_path']          = sys_get_temp_dir();
         $config['allowed_types']        = '*';
 

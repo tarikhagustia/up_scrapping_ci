@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="card-body">
                         <h5 class="card-title"><?= $i->snippet->title ?></h5>
                         <p class="card-text"><?= $i->snippet->description ?></p>
-                        <a href="https://www.youtube.com/watch?v=<?php $i->id->videoId ?>" class="btn btn-default"><?= $i->snippet->channelTitle ?></a>
+                        <a href="https://www.youtube.com/watch?v=<?= $i->id->videoId ?>" class="btn btn-default"><?= $i->snippet->channelTitle ?></a>
                     </div>
                 </div>
             </div>

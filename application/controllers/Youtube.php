@@ -46,8 +46,9 @@ class Youtube extends CI_Controller {
     public function search_location()
     {
         $q = $this->input->get('q');
-        $location = $this->input->get('location');
-        $radius = $this->input->get('radius');
+echo '<br><br><br><br><br><br><br>';
+        echo $location = '';//'-6.2293867,106.6894293';//$this->input->get('location');
+        $radius = '';//$this->input->get('radius');
         $results = $this->scrapping->youtubeSearchLocation($q, $location, $radius);
         $this->load->view('youtube_search', compact('results'));
     }
