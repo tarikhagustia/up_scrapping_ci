@@ -8,23 +8,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <body>
     <div class="container">
-        <h3>Video Uploader</h3>
-        <div class="row">
-            <div class="col-sm-12">
-                <form method="POST" action="<?= base_url("upload/do_upload") ?>" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Judul</label>
-                        <input class="form-control" name="title" id="title" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label>File Video</label>
-                        <input class="file" name="video" type="file" size="32" />
-                    </div>
-                    <button class="btn btn-primary">Upload</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div><a href="<?= base_url("upload/new") ?>">Tambah</a></div>
+	<table class="table table-striped table-hover" width="100%">
+		<thead>
+			<tr>
+				<th width="5%" class="center">No</th>
+				<th width="51%" class="center">Title</th>
+				<th width="24%" class="center">Caption</th>
+				<th width="20%" class="center">Url</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 	
+			$sql = "select * from vidaggrlib_2020 where vidaggrlib_status	='Active'";
+        $query = $this->db->query($sql);			
+				$no = 0;
+				foreach ($query->result_array() as $row){
+				$idx = $row['vidaggrlib_id'];
+				$title = $row['vidaggrlib_title'];
+				$captiondefault = $row['vidaggrlib_captiondefault'];
+				$urldefault = $row['vidaggrlib_urldefault'];
+			?>
+			<tr>
+				<td align="right"><?= $no; ?>.&nbsp;</td>
+				<td><?= $title; ?></td>
+				<td align="center"><?= $captiondefault; ?></td>
+				<td align="center"><?= $urldefault; ?></td>
+			</tr>
+			<?php } ?>
+		</tbody>
+	</table></div>
 </body>
 </html>

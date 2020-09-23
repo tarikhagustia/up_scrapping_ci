@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://apa.id/tarikh_upload/'; //'http://43.252.138.70/tarikh_upload';
+$config['base_url'] = 'https://dev.apa.id/tarikh_upload/'; //'http://43.252.138.70/tarikh_upload';
 
 /*
 |--------------------------------------------------------------------------
