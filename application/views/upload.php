@@ -23,8 +23,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <button class="btn btn-primary">Upload</button>
                 </form>
+                <br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="upload-progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous"></script>
+    <script>
+        const progressBar = document.getElementById("upload-progress-bar");
+        $('form').ajaxForm({
+            beforeSend: function() {
+                progressBar.style.width = `0%`;
+                progressBar.innerHTML = `0%`;
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+                var percentVal = percentComplete + '%';
+                progressBar.style.width = percentVal;
+                progressBar.innerHTML = percentVal;
+            },
+            complete: function(xhr) {
+                // Upload Selesai Redirect kehalaman
+                const vid = xhr.responseJSON.data.videoId;
+                const baseUrl = "<?= base_url("videos") ?>";
+                window.location.replace(baseUrl + "/?vid=" + vid);
+            }
+        });
+    </script>
 </body>
 </html>

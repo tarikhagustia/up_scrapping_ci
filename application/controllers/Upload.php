@@ -51,8 +51,17 @@ class Upload extends CI_Controller {
         $response = $this->scrapping->uploadVideo($title, $data['full_path']);
 
         // Redirect to videos detail
-        redirect('videos?vid='.$response->data->videoId);
+        header("Content-Type: application/json");
+        echo json_encode($response);
+    }
 
+    public function check_status($video_id)
+    {
+        $video = $this->db->get_where('videos', [
+            "id" => $video_id
+        ])->row();
 
+        header("Content-Type: application/json");
+        echo json_encode($video);
     }
 }
