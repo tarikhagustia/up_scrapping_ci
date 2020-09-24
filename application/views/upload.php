@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <button class="btn btn-primary">Upload</button>
                 </form>
                 <br>
-                <div class="progress">
+                <div class="progress" hidden>
                     <div class="progress-bar progress-bar-striped progress-bar-animated" id="upload-progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                 </div>
             </div>
@@ -35,8 +35,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous"></script>
     <script>
         const progressBar = document.getElementById("upload-progress-bar");
+
         $('form').ajaxForm({
             beforeSend: function() {
+                $('.progress').removeAttr('hidden')
                 progressBar.style.width = `0%`;
                 progressBar.innerHTML = `0%`;
             },
