@@ -20,7 +20,7 @@ class DailyMotionController extends CI_Controller
         $perPage = $this->input->get('per_page') ?? 9;
 
         $results = $this->api->get('/videos', [
-            'fields' => ['id', 'title', 'channel', 'owner', 'embed_url', 'embed_html', 'thumbnail_url', 'description'],
+            'fields' => ['id', 'title', 'channel', 'owner', 'embed_url', 'embed_html', 'thumbnail_url', 'description', 'status'],
             'page'   => $page,
             'limit'  => $perPage,
             'owner'  => 'x2fj06o'

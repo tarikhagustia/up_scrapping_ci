@@ -19,6 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?= $row['embed_html'] ?>
                 </div>
                 <h3><?= $row['title'] ?></h3>
+                <p>Description : <?= $row['description'] ?></p>
+                <p>Status : <?= $row['status'] ?></p>
             </div>
             <?php endforeach; ?>
         <?php if ($results['has_more']): ?>
