@@ -15,20 +15,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <?php foreach ($results['list'] as $row): ?>
             <div class="col-sm-4 mb-5">
-                <img src="<?= $row['thumbnail_url'] ?>" class="img-fluid">
-                <h3><?= $row['name'] ?></h3>
-                <a href="<?= base_url('DailyMotionController/view_playlist/'.$row['id']) ?>">View</a>
+                <div class="embed-responsive embed-responsive-16by9">
+                <?= $row['embed_html'] ?>
+                </div>
+                <h3><?= $row['title'] ?></h3>
                 <p>Description : <?= $row['description'] ?></p>
-                <p>Total Video : <?= $row['videos_total'] ?></p>
-                <ul>
-                    <?php foreach ($row['videos'] as $v): ?>
-                    <li><?= $v['title'] ?></li>
-                    <?php endforeach; ?>
-                </ul>
+                <p>Status : <?= $row['status'] ?></p>
             </div>
             <?php endforeach; ?>
         <?php if ($results['has_more']): ?>
-            <a class="btn btn-primary" href="<?= base_url('DailyMotionController/playlist') ?>?page=<?= $page + 1 ?>">Halaman Selanjutnya</a>
+            <a class="btn btn-primary" href="<?= base_url('DailyMotionController/view_playlist/'.$code) ?>?page=<?= $page + 1 ?>">Halaman Selanjutnya</a>
         <?php endif ?>
         </div>
     </div>

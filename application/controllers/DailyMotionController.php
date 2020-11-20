@@ -57,4 +57,16 @@ class DailyMotionController extends CI_Controller
 
         $this->load->view('daily_motion_playlist', compact('results', 'perPage', 'page'));
     }
+
+    public function view_playlist($code)
+    {
+        $page = $this->input->get('page') ?? 1;
+        $perPage = $this->input->get('per_page') ?? 100;//9;
+
+        $results = $this->api->get("/playlist/$code/videos", [
+            'fields' => ['id', 'title', 'channel', 'owner', 'embed_url', 'embed_html', 'thumbnail_url', 'description', 'status', 'thumbnail_120_url', 'thumbnail_180_url', 'thumbnail_240_url', 'thumbnail_360_url', 'thumbnail_480_url', 'thumbnail_720_url', 'thumbnail_1080_url'],
+        ]);
+
+        $this->load->view('daily_motion_playlist_video', compact('results', 'perPage', 'page', 'code'));
+    }
 }
