@@ -69,4 +69,46 @@ class DailyMotionController extends CI_Controller
 
         $this->load->view('daily_motion_playlist_video', compact('results', 'perPage', 'page', 'code'));
     }
+
+    public function streaming()
+    {
+
+        $this->load->view('daily_motion_streaming');
+    }
+
+    public function start_live()
+    {
+        $title = $this->input->post('title');
+        $description = $this->input->post('description');
+        $startTime = strtotime($this->input->post('startTime'));
+        $endTime = strtotime($this->input->post('endTime'));
+
+        // Create video
+        $videoResult = $this->api->post("/videos", [
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('description'),
+            'mode' => 'live',
+            'published' => true,
+            'start_time' => $startTime,
+            'end_time' => $endTime
+        ]);
+        // // Get Stream Url
+        $result = $this->api->get("/video/" . $videoResult['id'], [
+            'fields' => ['live_publish_url']
+        ]);
+
+        // Get Stream Part
+        $urlParts = explode("/", $result['live_publish_url']);
+
+
+        // This is detail
+        $streamKeyPart = $urlParts[4];
+        $streamUrlPart = "rtmp://publish.dailymotion.com/publish-dm";
+        $fullUrl = $result['live_publish_url'];
+        echo "</br>";
+        echo "STREAM KEY PART : ".$streamKeyPart.PHP_EOL."</br>";
+        echo "STREAM URL PART : ".$streamUrlPart.PHP_EOL."</br>";
+        echo "STREAM FULL URL : ".$fullUrl.PHP_EOL."</br>";
+
+    }
 }
